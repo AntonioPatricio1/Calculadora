@@ -40,7 +40,15 @@ def squareRoot(n):
 
 # Função Logarítmica
 def log(n, logValue):
-    return math.log(n, 10)
+    return math.log(n, logValue)
+
+
+# Função Percentagem 
+def percentage(n1, n2):
+    if n1 > 0 or n2 > 0:
+        return str(round((n1 / n2) * 100,2)) + "%"
+    else:
+        return "Error - Negative numbers"
 
 
 # Imprime Lista de operações
@@ -49,27 +57,31 @@ def printOperation():
     os.system('cls')
     while True:
         try: 
-            operation = float(input('''
+            operation = int(input('''
                 Insira a opção matemática que quer calcular:
                     1 - Soma
                     2 - Subtração
                     3 - Multiplicação
                     4 - Divisão
                     5 - Exponencial
-                    6 - Logarítmica
-                    7 - Factorial
-                    8 - Raíz Quadrada
+                    6 - Percentagem
+                    7 - Logarítmica
+                    8 - Factorial
+                    9 - Raíz Quadrada
                    
                 \n\t\tInsira o número da operação: '''))
 
             
-            if operation > 0 and operation <= 8:
+            if operation > 0 and operation <= 9:
                 return operation
                 break
+            else:
+                print("\t\tInsira uma operação válida!")
                 
         except ValueError:       # Se é causado um erro apresenta ValueError
             os.system('cls')
-            print("\t\tInsira um valor válido!")
+            print("\t\tInsira uma operação válida!")
+
 
 # Função que imprime resultado
 def printString(string):
@@ -81,7 +93,7 @@ def again():
     os.system('cls')
 
     if option_again.upper() == 'S':
-        calculate()
+        main()
     elif option_again.upper() == 'N':
         print('Adeus!')
     else:
@@ -89,17 +101,25 @@ def again():
         again()
         
 
-def calculate():
+# Função Principal
+def main():
     operation = printOperation()
 
     # Validação para inserir dois valores
-    if operation >= 1 and operation <= 6:
+    if operation >= 1 and operation <= 7:
         while True:
             try:
-                n1 = float(input('\t\t> Insira o primeiro número: '))
 
                 if operation == 6:
+                    print('\n\t\tInfo: Primeiro valor corresponde á percentagem a aplicar !')
+
+
+                n1 = float(input('\t\t> Insira o primeiro número: '))
+
+             
+                if operation == 7:
                     print('\n\t\tInfo: Valor do log > 1 e <= 10!')
+
                     n2 = float(input('\t\t> Insira o segundo número: '))
                     if n2 > 1 and n2 <= 10:
                         break
@@ -110,14 +130,15 @@ def calculate():
                 else:
                     n2 = float(input('\t\t> Insira o segundo número: '))
 
-                if type(n1) == int or float and type(n2) == int or float:
+
+                if type(n1) == float and type(n2) == float:
                     break
 
             except ValueError:       # Do this instead if the try block causes a ValueError
                 print("\n\t\tInsira um valor válido!")
             
-    # Porquê um else? porque na função printOperation() é verificado se o numero está entre 0 e 8 ou igual a 8 
-    # Validação insere um valor, no caso de ser 6, 7 ou 8
+    # Porquê um else? porque na função printOperation() é verificado se o numero está entre 0 e 9 ou igual a 9 
+    # Validação insere só um valor, no caso de ser 8 ou 9
     else:
        n2 = float(input('\t\t> Insira um número: '))
 
@@ -138,20 +159,22 @@ def calculate():
         printString(exponential(n1, n2))
     
     elif operation == 6:
-        printString(log(n1, n2))
+        printString(percentage(n1, n2))
     
     elif operation == 7:
+        printString(log(n1, n2))
+    
+    elif operation == 8:
         printString(factorial(n2))
         
-    # Executa funcao squareRoot (8) pois já foi limitado o valor do número na função printOperation()
+    # Executa funcao squareRoot (9) pois já foi limitado o valor do número na função printOperation()
     else:
         printString(squareRoot(n2))
         
-
 
     # Add again() function to calculate() function
     again()
 
    
 # Execução do código
-calculate()
+main()

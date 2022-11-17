@@ -5,8 +5,9 @@
 - Subtract
 - Multiply
 - Divide
+- Exponential
 - Percentage
 - Log (user defines base)
 - Factorial
-- Exponential
 - Square root
+
